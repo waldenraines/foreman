@@ -284,14 +284,14 @@ module ApplicationHelper
     return if args.length == 0
 
     #single button
-    return content_tag(:span, args[0].html_safe, :class=>'btn btn-sm') if args.length == 1
+    return content_tag(:span, args[0].html_safe, :class=>'btn btn-default btn-sm') if args.length == 1
 
     #multiple buttons
     primary =  args.delete_at(0).html_safe
-    primary = content_tag(:span, primary, :class=>'btn btn-sm') if primary !~ /btn/
+    primary = content_tag(:span, primary, :class=>'btn btn-default btn-sm') if primary !~ /btn/
 
     content_tag(:div,:class => "btn-group") do
-      primary + link_to(content_tag(:i, '', :class=>'caret'),'#', :class=>"btn #{'btn-sm' if primary =~ /small/} dropdown-toggle", :'data-toggle'=>'dropdown') +
+      primary + link_to(content_tag(:i, '', :class=>'caret'),'#', :class=>"btn btn-default #{'btn-sm' if primary =~ /sm/} dropdown-toggle", :'data-toggle'=>'dropdown') +
       content_tag(:ul,:class=>"dropdown-menu") do
         args.map{|option| content_tag(:li,option)}.join(" ").html_safe
       end

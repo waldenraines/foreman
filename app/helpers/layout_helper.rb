@@ -26,7 +26,7 @@ module LayoutHelper
 
   def text_f(f, attr, options = {})
     field(f, attr, options) do
-      options[:class] = "form-control #{(options[:class] || '')}"
+      options[:class] = "form-control col-md-6 #{(options[:class] || '')}"
       f.text_field attr, options
     end
   end
@@ -56,8 +56,10 @@ module LayoutHelper
     text = options.delete(:help_text)
     inline = options.delete(:help_inline)
     field(f, attr, options) do
-      help_inline = inline.blank? ? '' : content_tag(:span, inline, :class => "help-block")
-      f.check_box(attr, options, checked_value, unchecked_value) + " #{text} " + help_inline.html_safe
+      help_inline = inline.blank? ? '' : content_tag(:label, inline, :class => "help-block")
+      content_tag(:div, :class => "checkbox") do
+        f.check_box(attr, options, checked_value, unchecked_value) + " #{text} " + help_inline.html_safe
+      end
     end
   end
 
@@ -76,6 +78,7 @@ module LayoutHelper
 
   # add hidden field for options[:disabled]
   def multiple_selects(f, attr, associations, selected_ids, options={}, html_options={})
+    options[:col_width] = 'col-md-8'
     field(f, attr,options) do
       attr_ids = (attr.to_s.singularize+"_ids").to_sym
       hidden_fields = f.hidden_field(attr_ids, :multiple => true, :value => '', :id=>'')
@@ -121,6 +124,7 @@ module LayoutHelper
 
   def field(f, attr, options = {})
     fluid = options[:fluid]
+    col_width = options[:col_width] || 'col-md-4'
     error = f.object.errors[attr] if f && f.object.respond_to?(:errors)
     help_inline = help_inline(options.delete(:help_inline), error)
 
@@ -129,8 +133,8 @@ module LayoutHelper
       label   = options.delete(:label)
       label ||= ((clazz = f.object.class).respond_to?(:gettext_translation_for_attribute_name) &&
                   s_(clazz.gettext_translation_for_attribute_name attr)) if f
-      label_tag(attr, label, :class=>"control-label").html_safe +
-        content_tag(:div, :class => "controls") do
+      label_tag(attr, label, :class=>"control-label col-md-2").html_safe +
+        content_tag(:div, :class => "controls " + col_width) do
           yield.html_safe + help_inline.html_safe + help_block.html_safe
         end.html_safe
     end
@@ -150,7 +154,7 @@ module LayoutHelper
 
   def submit_or_cancel f, overwrite = false, args = { }
     args[:cancel_path] ||= send("#{controller_name}_path")
-    content_tag(:div, :class => "form-actions") do
+    content_tag(:div, :class => "form-actions col-md-offset-2") do
       content_tag(:div) do
         text    = overwrite ? _("Overwrite") : _("Submit")
         options = overwrite ? {:class => "btn btn-danger"} : {:class => "btn btn-primary"}
