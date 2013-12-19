@@ -199,10 +199,8 @@ module LayoutHelper
            end.html_safe
     html += options[:more].html_safe if options[:more]
     content_tag(
-      :div,content_tag(
-          :ul, content_tag(
-              :li, link_to(html, "#")
-          ), :style=>"float: left;"
+      :div, content_tag(
+        :p, html
       ), :class => "col-md-4 pagination")
   end
 
