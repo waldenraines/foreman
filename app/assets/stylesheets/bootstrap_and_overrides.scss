@@ -3,10 +3,21 @@
 
 $navbar-default-bg: $primary_color;
 
-@import "bootstrap";
+@import "rcue";
 
 .dropdown-menu {
   @include border_radius(0, 0, 6px, 6px);
+}
+
+.full-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.autocomplete-clear{
+  font-size: 14px
 }
 
 // Necessary because bootstrap3 nav dropdown does not have top arrow
@@ -55,13 +66,13 @@ $navbar-default-bg: $primary_color;
   border-color:transparent;
   border-style:solid;
   border-width:5px 0 5px 5px;
-  border-left-color:#cccccc;
-  margin-top:5px;
-  margin-right:-10px;
+  border-left-color:#999999;
+  margin-top:0.5em;
+  margin-right:0px;
 }
 
 .dropdown-submenu:hover > a:after {
-  border-left-color:#ffffff;
+  border-left-color: #333333;
 }
 
 .dropdown-submenu.pull-left {
