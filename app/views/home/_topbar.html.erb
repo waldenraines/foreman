@@ -1,6 +1,6 @@
 <div class="navbar navbar-default navbar-outer">
   <div class="navbar-header">
-    <div class="container">
+    <div class="full-container">
       <div class="navbar-brand">
         <!--[if IE]><div class='logo-small'> <![endif]-->
         <%= image_tag("foreman.png") %>
@@ -22,7 +22,7 @@
   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-admin">
     <span class="glyphicon glyphicon-cog"></span>
   </button>
-  <div class="container">
+  <div class="full-container">
     <!-- menu -->
     <%= content_tag :div,nil, :id=>'current_tab', :data=>{:controller=>controller_name, :action=>action_name} %>
     <% if User.current %>
