@@ -486,8 +486,8 @@ class HostTest < ActiveSupport::TestCase
     test "should save if root password is undefined when the host is managed and in build mode" do
       Setting[:root_pass] = ''
       host = Host.new :name => "myfullhost", :managed => true, :build => false
-      host.valid?
-      refute host.errors[:root_pass].any?
+      refute host.valid?
+      assert host.errors[:root_pass].present?
     end
 
     test "should save if root password is undefined when the compute resource is image capable and in build mode" do
@@ -692,14 +692,14 @@ class HostTest < ActiveSupport::TestCase
       end
 
       test "available_template_kinds finds templates for a PXE host" do
-        os_dt = FactoryGirl.create(:os_default_template, :template_kind=> TemplateKind.find('finish'))
+        os_dt = FactoryGirl.create(:os_default_template, :template_kind=> TemplateKind.friendly.find('finish'))
         host  = FactoryGirl.create(:host, :operatingsystem => os_dt.operatingsystem)
 
         assert_equal [os_dt.provisioning_template], host.available_template_kinds('build')
       end
 
       test "available_template_kinds finds templates for an image host" do
-        os_dt = FactoryGirl.create(:os_default_template, :template_kind=> TemplateKind.find('finish'))
+        os_dt = FactoryGirl.create(:os_default_template, :template_kind=> TemplateKind.friendly.find('finish'))
         host  = FactoryGirl.create(:host, :on_compute_resource,
                                    :operatingsystem => os_dt.operatingsystem)
         FactoryGirl.create(:image, :uuid => 'abcde',
@@ -756,17 +756,6 @@ class HostTest < ActiveSupport::TestCase
       h = FactoryGirl.create(:host, :with_puppet_orchestration)
       Setting[:manage_puppetca] = true
       assert h.puppetca?
-
-      Setting[:use_uuid_for_certificates] = false
-      some_uuid = Foreman.uuid
-      h.certname = some_uuid
-
-      h.expects(:initialize_puppetca).returns(true)
-      mock_puppetca = Object.new
-      mock_puppetca.expects(:del_certificate).with(some_uuid).returns(true)
-      mock_puppetca.expects(:set_autosign).with(h.name).returns(true)
-      h.instance_variable_set("@puppetca", mock_puppetca)
-
       assert h.handle_ca
       assert_equal h.certname, h.name
     end
@@ -966,7 +955,7 @@ class HostTest < ActiveSupport::TestCase
       g.parent = p
       g.save
       assert h.save
-      assert_present h.root_pass
+      assert h.root_pass.present?
       assert_equal p.root_pass, h.root_pass
       assert_equal p.root_pass, h.read_attribute(:root_pass), 'should copy root_pass to host'
     end
@@ -976,7 +965,7 @@ class HostTest < ActiveSupport::TestCase
       h = FactoryGirl.create(:host, :managed)
       h.root_pass = nil
       assert h.save
-      assert_present h.root_pass
+      assert h.root_pass.present?
       assert_equal Setting[:root_pass], h.root_pass
       assert_equal Setting[:root_pass], h.read_attribute(:root_pass), 'should copy root_pass to host'
     end
@@ -988,7 +977,7 @@ class HostTest < ActiveSupport::TestCase
       h.root_pass = ""
       h.save
       assert_valid h
-      assert_present h.root_pass
+      assert h.root_pass.present?
       assert_equal Setting[:root_pass], h.root_pass
       assert_equal Setting[:root_pass], h.read_attribute(:root_pass), 'should copy root_pass to host'
     end
@@ -1065,7 +1054,6 @@ class HostTest < ActiveSupport::TestCase
     test "#set_interfaces updates existing physical interface" do
       host, parser = setup_host_with_nic_parser({:macaddress => '00:00:00:11:22:33', :virtual => false, :ipaddress => '10.0.0.200', :link => false})
       FactoryGirl.create(:nic_managed, :host => host, :mac => '00:00:00:11:22:33', :ip => '10.10.0.1', :link => true)
-
       assert_no_difference 'Nic::Base.count' do
         host.set_interfaces(parser)
       end
@@ -1327,7 +1315,7 @@ class HostTest < ActiveSupport::TestCase
         filter = FactoryGirl.build(:filter)
         filter.permissions = [ Permission.find_by_name('edit_hosts') ]
         filter.save!
-        role = Role.find_or_create_by_name :name => "testing_role"
+        role = Role.find_or_create_by :name => "testing_role"
         role.filters = [ filter ]
         role.save!
         @one.roles = [ role ]
@@ -1759,19 +1747,19 @@ class HostTest < ActiveSupport::TestCase
   test "available_puppetclasses should return all if no environment" do
     host = FactoryGirl.create(:host)
     host.update_attribute(:environment_id, nil)
-    assert_equal Puppetclass.scoped, host.available_puppetclasses
+    assert_equal Puppetclass.all, host.available_puppetclasses
   end
 
   test "available_puppetclasses should return environment-specific classes" do
     host = FactoryGirl.create(:host, :with_environment)
-    refute_equal Puppetclass.scoped, host.available_puppetclasses
+    refute_equal Puppetclass.all, host.available_puppetclasses
     assert_equal host.environment.puppetclasses.sort, host.available_puppetclasses.sort
   end
 
   test "available_puppetclasses should return environment-specific classes (and that are NOT already inherited by parent)" do
     hostgroup        = FactoryGirl.create(:hostgroup, :with_puppetclass)
     host             = FactoryGirl.create(:host, :hostgroup => hostgroup, :environment => hostgroup.environment)
-    refute_equal Puppetclass.scoped, host.available_puppetclasses
+    refute_equal Puppetclass.all, host.available_puppetclasses
     refute_equal host.environment.puppetclasses.sort, host.available_puppetclasses.sort
     assert_equal (host.environment.puppetclasses - host.parent_classes).sort, host.available_puppetclasses.sort
   end
@@ -1902,7 +1890,7 @@ class HostTest < ActiveSupport::TestCase
 
   test 'facts are deleted when build set to true' do
     host = FactoryGirl.create(:host, :with_facts)
-    assert_present host.fact_values
+    assert host.fact_values.present?
     refute host.build?
     host.update_attributes(:build => true)
     assert_empty host.fact_values.reload
@@ -1910,7 +1898,7 @@ class HostTest < ActiveSupport::TestCase
 
   test 'reports are deleted when build set to true' do
     host = FactoryGirl.create(:host, :with_reports)
-    assert_present host.reports
+    assert host.reports.present?
     refute host.build?
     host.update_attributes(:build => true)
     assert_empty host.reports.reload
@@ -1995,7 +1983,7 @@ class HostTest < ActiveSupport::TestCase
   test '#drop_primary_interface_cache' do
     host = FactoryGirl.create(:host, :managed)
     refute_nil host.primary_interface
-    host.interfaces = []
+    host.interfaces.clear
     # existing host must cache interface
     refute_nil host.primary_interface
     host.drop_primary_interface_cache
@@ -2005,7 +1993,7 @@ class HostTest < ActiveSupport::TestCase
   test '#drop_provision_interface_cache' do
     host = FactoryGirl.create(:host, :managed)
     refute_nil host.provision_interface
-    host.interfaces = []
+    host.interfaces.clear
     # existing host must cache interface
     refute_nil host.provision_interface
     host.drop_provision_interface_cache

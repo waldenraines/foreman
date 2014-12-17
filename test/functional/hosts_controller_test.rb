@@ -97,14 +97,14 @@ class HostsControllerTest < ActionController::TestCase
     Resolv.any_instance.stubs(:getnames).returns(['else.where'])
     get :externalNodes, {:name => @host.name}, set_session_user
     assert_response :success
-    assert_template :text => @host.info.to_yaml.gsub("\n","<br/>")
+    assert response.body == "<pre>#{ERB::Util.html_escape(@host.info.to_yaml)}</pre>"
   end
 
   test "externalNodes should render yml request correctly" do
     Resolv.any_instance.stubs(:getnames).returns(['else.where'])
     get :externalNodes, {:name => @host.name, :format => "yml"}, set_session_user
     assert_response :success
-    assert_template :text => @host.info.to_yaml
+    assert response.body == @host.info.to_yaml
   end
 
   test "when host is not saved after setBuild, the flash should inform it" do
@@ -749,21 +749,21 @@ class HostsControllerTest < ActionController::TestCase
 
   test "can change sti type to valid subtype" do
     class Host::Valid < Host::Base; end
-    put :update, { :commit => "Update", :id => @host.name, :host => {:type => "Host::Valid"} }, set_session_user
+    patch :update, { :commit => "Update", :id => @host.name, :host => {:type => "Host::Valid"} }, set_session_user
     @host = Host::Base.find(@host.id)
     assert_equal "Host::Valid", @host.type
   end
 
   test "cannot change sti type to invalid subtype" do
     old_type = @host.type
-    put :update, { :commit => "Update", :id => @host.name, :host => {:type => "Host::Notvalid", :disk => @host.disk } }, set_session_user
+    patch :update, { :commit => "Update", :id => @host.name, :host => {:type => "Host::Notvalid", :disk => @host.disk } }, set_session_user
     @host = Host.find(@host.id)
     assert_equal old_type, @host.type
   end
 
   test "blank root password submitted does not erase existing password" do
     old_root_pass = @host.root_pass
-    put :update, { :commit => "Update", :id => @host.name, :host => {:root_pass => ''} }, set_session_user
+    put :update, { :commit => "Update", :id => @host.name, :host => {:root_pass => '', :provider => 'IPMI'} }, set_session_user
     @host = Host.find(@host.id)
     assert_equal old_root_pass, @host.root_pass
   end

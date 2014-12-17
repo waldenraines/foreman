@@ -431,7 +431,6 @@ class UserTest < ActiveSupport::TestCase
   test "role_ids can be empty array which removes all roles" do
     user   = users(:one)
     foobar = Role.find_or_create_by(:name => "foobar")
-    barfoo = Role.find_or_create_by(:name => "barfoo")
     user.roles << foobar
 
     user.role_ids = []
@@ -441,7 +440,6 @@ class UserTest < ActiveSupport::TestCase
   test "role_ids can be nil resulting in no role" do
     user   = users(:one)
     foobar = Role.find_or_create_by(:name => "foobar")
-    barfoo = Role.find_or_create_by(:name => "barfoo")
     user.roles << foobar
 
     user.role_ids = nil
@@ -564,7 +562,7 @@ class UserTest < ActiveSupport::TestCase
 
     context "existing AuthSource" do
       setup do
-        @apache_source = AuthSourceExternal.find_or_create_by_name('apache_module')
+        @apache_source = AuthSourceExternal.find_or_create_by(:name => 'apache_module')
       end
 
       test "not existing" do
@@ -815,7 +813,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'can search users by role id' do
     # Setup role and assign to user
-    role = Role.find_or_create_by_name(:name => "foobar")
+    role = Role.find_or_create_by(:name => "foobar")
     user = users(:one)
     user.role_ids = [role.id]
 
