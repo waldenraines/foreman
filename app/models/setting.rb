@@ -106,12 +106,8 @@ class Setting < ActiveRecord::Base
   def parse_string_value(val)
     case settings_type
     when "boolean"
-      val = val.downcase
-      if val == "true"
-        self.value = true
-      elsif val == "false"
-        self.value = false
-      else
+      self.value = Foreman::Cast.to_bool(val)
+      if self.value == self.default
         invalid_value_error _("must be boolean")
         return false
       end
