@@ -5,8 +5,8 @@ class CastTest < ActiveSupport::TestCase
   include Foreman::Cast
 
   test "should convert strings to booleans" do
-    true_strings = %w('true', 't', 'yes', 'y', '1')
-    false_strings = %w('false', 'f', 'no', 'n', '0')
+    true_strings = %w(true t yes y 1)
+    false_strings = %w(false f no n 0)
 
     true_strings.each do |true_string|
       assert_equal true, to_bool(true_string)

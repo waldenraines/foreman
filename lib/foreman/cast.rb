@@ -1,5 +1,5 @@
 module Foreman
-  class Cast
+  module Cast
     def self.to_bool(value)
       case value
 
