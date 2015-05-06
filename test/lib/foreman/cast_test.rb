@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'foreman/cast'
 
-class UtilTest < ActiveSupport::TestCase
+class CastTest < ActiveSupport::TestCase
   include Foreman::Cast
 
   test "should convert strings to booleans" do
