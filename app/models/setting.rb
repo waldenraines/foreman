@@ -106,11 +106,14 @@ class Setting < ActiveRecord::Base
   def parse_string_value(val)
     case settings_type
     when "boolean"
-      self.value = Foreman::Cast.to_bool(val)
-      if self.value == self.default
+      boolean = Foreman::Cast.to_bool(val)
+
+      if boolean.nil?
         invalid_value_error _("must be boolean")
         return false
       end
+
+      self.value = boolean
 
     when "integer"
       if val =~ /\A\d+\Z/
