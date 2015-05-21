@@ -48,7 +48,7 @@
 
         <%= autocomplete_f f, :search,
                            :disabled => f.object.unlimited?,
-                           :path => nil,
+                           :path => "",
                            :full_path => search_path(f.object.resource_type),
                            :control_group_id => 'search_group' %>
       </div>
