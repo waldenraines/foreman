@@ -149,7 +149,8 @@ module LayoutHelper
                            options.merge(
                                :placeholder => _("Filter") + ' ...',
                                :path        => path,
-                               :name       => "#{f.object_name}[#{attr}]"
+                               :full_path   => options[:full_path],
+                               :name        => "#{f.object_name}[#{attr}]"
                            )
       ).html_safe
     end
