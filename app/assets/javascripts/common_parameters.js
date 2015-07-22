@@ -21,6 +21,7 @@ $(document).ready(function() {
 
 function load_editor(){
     var template_text = $(".template_text");
+    console.log(template_text);
     create_param_editor(template_text)
 }
 
