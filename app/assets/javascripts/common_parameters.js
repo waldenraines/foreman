@@ -1,7 +1,5 @@
 var Editor;
 
-$(document).on('ContentLoad', function(){onEditorLoad()});
-
 $(document).on('click','#provisioning_template_submit', function(){
     if($('.diffMode').exists()){
         set_edit_mode( $(".template_text"));
@@ -16,24 +14,14 @@ $(document).on('change','#keybinding', function(){
     set_keybinding()
 });
 
+$(document).ready(function() {
+    console.log("LOADED!");
+    load_editor();
+});
 
-function onEditorLoad(){
+function load_editor(){
     var template_text = $(".template_text");
-    if ($.browser && $.browser.msie && $.browser.version.slice(0,1) < 10) {
-        if ($('.diffMode').exists()) {
-            IE_diff_mode(template_text);
-        }
-    }else{
-        if (template_text.exists()){
-            create_editor(template_text)
-        }
-
-        if ($('.diffMode').exists()) {
-            set_diff_mode(template_text);
-        } else {
-            set_edit_mode(template_text);
-        }
-    }
+    create_param_editor(template_text)
 }
 
 function set_keybinding(){
@@ -85,7 +73,9 @@ function snippet_changed(item){
     $('#association').toggle(!checked);
 }
 
-function create_editor(item) {
+function create_param_editor(item) {
+    console.log("WTF");
+    console.log(item);
     item.parent().prepend("<div id='editor1'></div>");
     item.hide();
     Editor = ace.edit("editor1");
