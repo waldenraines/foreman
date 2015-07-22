@@ -22,4 +22,10 @@ module CommonParametersHelper
   def use_puppet_default_help link_title = _("Explain use Puppet default"), title = _("Use Puppet default")
     popover(link_title, _("Do not send this parameter via the ENC.<br>Puppet will use the value defined in the manifest."), :title => title)
   end
+
+  def include_javascript
+    javascript 'common_parameters', 'ace/ace',
+               'ace/theme-twilight', 'ace/theme-dawn', 'ace/theme-clouds', 'ace/theme-textmate',
+               'ace/mode-diff', 'diff', 'ace/mode-ruby', 'ace/keybinding-vim', 'ace/keybinding-emacs'
+  end
 end
