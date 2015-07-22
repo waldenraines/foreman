@@ -7,8 +7,9 @@
     <%= textarea_f(f, :value,
                       :class => "form-control value col-md-8",
                       :rows => line_count(f, :value),
-                      :fullscreen => :true,
+                      :fullscreen => :false,
                       :placeholder => _("Value")) %>
+    <%= fullscreen_button("$('#editor1')") %>
   <% end %>
   <%= checkbox_f f, :hidden_value, :class => 'hidden_value_textarea_switch', :checked => f.object.hidden_value? %>
   <%= submit_or_cancel f %>
