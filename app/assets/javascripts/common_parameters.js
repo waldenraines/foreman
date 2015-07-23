@@ -1,5 +1,7 @@
 var Editor;
 
+$(document).on('ContentLoad', load_editor);
+
 $(document).on('click','#provisioning_template_submit', function(){
     if($('.diffMode').exists()){
         set_edit_mode( $(".template_text"));
@@ -14,10 +16,11 @@ $(document).on('change','#keybinding', function(){
     set_keybinding()
 });
 
-$(document).ready(function() {
-    console.log("LOADED!");
-    load_editor();
-});
+//$(document).ready(function() {
+//    console.log("LOADED!");
+//    load_editor();
+//});
+
 
 function load_editor(){
     var template_text = $(".template_text");
