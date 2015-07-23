@@ -16,16 +16,12 @@ $(document).on('change','#keybinding', function(){
     set_keybinding()
 });
 
-//$(document).ready(function() {
-//    console.log("LOADED!");
-//    load_editor();
-//});
-
-
 function load_editor(){
     var template_text = $(".template_text");
-    console.log(template_text);
-    create_param_editor(template_text)
+
+    if (template_text.length > 0) {
+        create_param_editor(template_text)
+    }
 }
 
 function set_keybinding(){
