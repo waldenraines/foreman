@@ -12,15 +12,13 @@ function load_param_editor(){
 
 function create_param_editor(item) {
     var value = item.val();
-    console.log(item);
-    console.log("create editor");
-    item.parent().prepend("<div id='param_editor'></div>");
+    item.parent().prepend("<div id='editor1'></div>");
     //item.hide();
 
-    Editor = ace.edit("param_editor");
+    Editor = ace.edit("editor1");
     Editor.setShowPrintMargin(false);
     Editor.renderer.setShowGutter(false);
-    $(document).on('resize','#param_editor', function(){Editor.resize()});
+    $(document).on('resize','#editor1', function(){Editor.resize()});
     if (item.is(':disabled')) {
         $('.ace_text-input').attr('disabled', true)
     }
