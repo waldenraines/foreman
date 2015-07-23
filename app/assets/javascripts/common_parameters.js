@@ -1,5 +1,3 @@
-var Editor;
-
 $(document).on('ContentLoad', load_param_editor);
 
 function load_param_editor(){
@@ -11,24 +9,26 @@ function load_param_editor(){
 }
 
 function create_param_editor(item) {
-    var value = item.val();
-    item.parent().prepend("<div id='param_editor'></div>");
-    //item.hide();
+    var session, ParamEditor,
+        value = item.val();
 
-    Editor = ace.edit("param_editor");
-    Editor.setShowPrintMargin(false);
-    Editor.renderer.setShowGutter(false);
-    $(document).on('resize','#param_editor', function(){Editor.resize()});
+    item.parent().prepend("<div id='param_editor'></div>");
+    item.hide();
+
+    ParamEditor = ace.edit("param_editor");
+    ParamEditor.setShowPrintMargin(false);
+    ParamEditor.renderer.setShowGutter(false);
+
+    $(document).on('resize','#param_editor', function(){ParamEditor.resize()});
     if (item.is(':disabled')) {
         $('.ace_text-input').attr('disabled', true)
     }
 
-    Editor.setTheme("ace/theme/twilight");
-    Editor.setReadOnly(false);
-    var session = Editor.getSession();
-    session.setMode("ace/mode/ruby");
+    ParamEditor.setTheme("ace/theme/twilight");
+    ParamEditor.setReadOnly(false);
 
-    console.log(value);
+    session = ParamEditor.getSession();
+    session.setMode("ace/mode/ruby");
 
     session.setValue(value);
 
