@@ -12,7 +12,7 @@ function load_param_editor(){
 
 function create_param_editor(item) {
     var value = item.val();
-
+    console.log(item);
     console.log("create editor");
     item.parent().prepend("<div id='param_editor'></div>");
     //item.hide();
