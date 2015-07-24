@@ -1,4 +1,4 @@
-<%= @show_preview %>
+<%= show_preview %>
 <div class="btn-group" data-toggle="buttons" >
   <label class="btn btn-default btn-sm active" onclick="set_code()">
     <input type="radio" name="options" id="option1" ><%= _("Code") %>
@@ -6,7 +6,7 @@
   <label class="btn btn-default btn-sm" onclick="set_preview()">
     <input type="radio" name="options" id="option2" ><%= _("Diff") %>
   </label>
-  <% if :show_preview %>
+  <% if show_preview %>
     <label class="btn btn-default btn-sm" onclick="set_render()">
       <input type="radio" name="options" id="option3" ><%= _("Preview") %>
     </label>
