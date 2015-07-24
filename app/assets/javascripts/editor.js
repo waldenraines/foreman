@@ -86,7 +86,7 @@ function snippet_changed(item){
 }
 
 function create_editor(item) {
-  item.parent().prepend("<div id='editor1'></div>");
+  item.parent().append("<div id='editor1'></div>");
   item.hide();
   Editor = ace.edit("editor1");
   Editor.setShowPrintMargin(false);

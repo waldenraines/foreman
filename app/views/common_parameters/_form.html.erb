@@ -5,17 +5,17 @@
     <%= password_f f, :value, :size => "col-md-8", :value => @common_parameter.value %>
   <% else %>
     <div class='form-group'>
-      <label class="control-label" for="common_parameter_value"><%= _("Value") %></label>
-      <div class="navbar navbar-form">
-        <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
-      </div>
+      <label class="control-label col-md-2" for="common_parameter_value"><%= _("Value") %></label>
 
-      <%= textarea_f(f, :value,
-                     :label => :none,
-                     :class => "form-control value editor_source",
-                     :size => "max",
-                     :rows => line_count(f, :value),
-                     :placeholder => _("Value")) %>
+      <div class="col-md-9">
+        <div class="navbar navbar-form">
+          <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
+        </div>
+        <%= f.text_area(:value,
+                       :class => "form-control value editor_source",
+                       :rows => line_count(f, :value),
+                       :placeholder => _("Value")) %>
+      </div>
     </div>
   <% end %>
   <%= checkbox_f f, :hidden_value, :class => 'hidden_value_textarea_switch', :checked => f.object.hidden_value? %>
