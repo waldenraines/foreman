@@ -8,7 +8,7 @@
       <label class="control-label col-md-2" for="common_parameter_value"><%= _("Value") %></label>
 
       <div class="col-md-9">
-        <div class="navbar navbar-form">
+        <div class="navbar navbar-form navbar-full-width">
           <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
         </div>
         <%= f.text_area(:value,
