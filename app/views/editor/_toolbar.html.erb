@@ -5,11 +5,11 @@
   <label class="btn btn-default btn-sm" onclick="set_preview()">
     <input type="radio" name="options" id="option2" ><%= _("Diff") %>
   </label>
-  <% if :show_preview == true -%>
+  <% if :show_preview %>
     <label class="btn btn-default btn-sm" onclick="set_render()">
       <input type="radio" name="options" id="option3" ><%= _("Preview") %>
     </label>
-  <% end -%>
+  <% end %>
 </div>
 <%= fullscreen_button("$('#editor1')") %>
 <div class="fr">
