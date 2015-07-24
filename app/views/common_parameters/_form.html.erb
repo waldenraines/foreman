@@ -4,10 +4,16 @@
   <% if @common_parameter.hidden_value? %>
     <%= password_f f, :value, :size => "col-md-8", :value => @common_parameter.value %>
   <% else %>
-    <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
+    <div class='form-group'>
+      <label class="control-label" for="template"><%= _("Value") %></label>
+      <div class="navbar navbar-form">
+        <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
+      </div>
+    </div>
     <%= textarea_f(f, :value,
-                      :class => "form-control value col-md-8 editor_source",
-                      :size => "col-md-9",
+                      :label =>:none,
+                      :class => "form-control value editor_source",
+                      :size => "max",
                       :rows => line_count(f, :value),
                       :placeholder => _("Value")) %>
   <% end %>
