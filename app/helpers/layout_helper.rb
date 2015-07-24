@@ -160,6 +160,7 @@ module LayoutHelper
     help_inline = help_inline(options.delete(:help_inline), error)
     help_block  = content_tag(:span, options.delete(:help_block), :class => "help-block")
     size_class = options.delete(:size) || "col-md-4"
+
     content_tag(:div, :class=> "clearfix") do
       content_tag :div, :class => "form-group #{error.empty? ? "" : 'has-error'}",
                   :id          => options.delete(:control_group_id) do
