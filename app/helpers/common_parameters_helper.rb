@@ -24,7 +24,7 @@ module CommonParametersHelper
   end
 
   def include_javascript
-    javascript 'common_parameters', 'ace/ace',
+    javascript 'editor', 'ace/ace',
                'ace/theme-twilight', 'ace/theme-dawn', 'ace/theme-clouds', 'ace/theme-textmate',
                'ace/mode-diff', 'diff', 'ace/mode-ruby', 'ace/keybinding-vim', 'ace/keybinding-emacs'
   end

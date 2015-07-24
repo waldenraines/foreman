@@ -1,0 +1,24 @@
+<div class='form-group'>
+  <label class="control-label" for="template"><%= _("Template editor") %></label>
+  <div class="navbar navbar-form">
+    <div class="btn-group" data-toggle="buttons" >
+      <label class="btn btn-default btn-sm active" onclick="set_code()">
+        <input type="radio" name="options" id="option1" ><%= _("Code") %>
+      </label>
+      <label class="btn btn-default btn-sm" onclick="set_preview()">
+        <input type="radio" name="options" id="option2" ><%= _("Diff") %>
+      </label>
+      <label class="btn btn-default btn-sm" onclick="set_render()">
+        <input type="radio" name="options" id="option3" ><%= _("Preview") %>
+      </label>
+    </div>
+          <span id="preview_host_selector" style="display:none">
+            <%= select_tag :preview_host_id, options_from_collection_for_select(@template.preview_host_collection, :id, :name),
+                           :onchange => 'get_rendered_template()' %>
+          </span>
+    <%= fullscreen_button("$('#editor1')") %>
+    <div class="fr">
+      <%= select_tag('keybinding', content_tag(:optgroup, options_for_select([_('Default'), 'Vim', 'Emacs']), :label => _('Key Binding')), :class => 'form-control input-sm') %>
+    </div>
+  </div>
+</div>
