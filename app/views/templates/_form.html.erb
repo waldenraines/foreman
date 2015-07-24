@@ -42,6 +42,10 @@
       <% end -%>
 
       <%= render :partial => 'editor/toolbar' %>
+      <span id="preview_host_selector" style="display:none">
+        <%= select_tag :preview_host_id, options_from_collection_for_select(@template.preview_host_collection, :id, :name),
+                       :onchange => 'get_rendered_template()' %>
+      </span>
 
       <%= alert :class => 'alert-danger hide', :id => 'preview_error', :close => false %>
       <%= textarea_f f, :template, :class => "editor_source", :label =>:none, :disabled => @template.locked?, :size => "max",
