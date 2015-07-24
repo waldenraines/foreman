@@ -44,7 +44,7 @@
       <div class='form-group'>
         <label class="control-label" for="template"><%= _("Template editor") %></label>
         <div class="navbar navbar-form">
-          <%= render :partial => 'editor/toolbar', :show_preview => true %>
+          <%= render :partial => 'editor/toolbar', :locals => {:show_preview => true} %>
         </div>
       </div>
 
