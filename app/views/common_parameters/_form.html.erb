@@ -4,8 +4,7 @@
   <% if @common_parameter.hidden_value? %>
     <%= password_f f, :value, :size => "col-md-8", :value => @common_parameter.value %>
   <% else %>
-    <%= render :partial => 'editor/toolbar' %>
-
+    <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
     <%= textarea_f(f, :value,
                       :class => "form-control value col-md-8 editor_source",
                       :size => "col-md-9",
