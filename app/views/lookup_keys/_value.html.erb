@@ -9,12 +9,19 @@
     <%= text_field_tag '', nil, :class => 'matcher_value' %>
   </td>
   <td>
-    <%= f.text_area :value, :rows => line_count(f, :value), :class => 'form-control', :'data-property' => 'value',
-                    :disabled => f.object.use_puppet_default,
-                    :placeholder => _("Value") %>
-  </td>
-  <td>
-    <%= fullscreen_button("$(this).parent().prev().find('textarea')") %>
+    <div class="editor-container">
+      <div class="hidden">
+        <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
+      </div>
+
+      <%= f.text_area :value, :rows => line_count(f, :value), :class => 'form-control editor_source', :'data-property' => 'value',
+                      # :disabled => f.object.use_puppet_default,
+                      :placeholder => _("Value") %>
+    </div>
+    <a class="btn btn-default btn-sm btn-fullscreen" href="#" onclick="set_fullscreen_editor('.editor-container', $(this).parent()); $(this).parent().find('.editor-container').removeClass('hidden');">
+      <i class="glyphicon glyphicon-resize-full"></i>
+    </a>
+
   </td>
   <td class="ca">
     <%= f.check_box :use_puppet_default, :'data-property' => 'use_puppet_default',
