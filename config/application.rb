@@ -161,6 +161,9 @@ module Foreman
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Set the name of the angular module to store templates in
+    config.angular_templates.module_name    = 'foreman-templates'
+
     # Catching Invalid JSON Parse Errors with Rack Middleware
     config.middleware.insert_before ActionDispatch::ParamsParser, "Middleware::CatchJsonParseErrors"
 

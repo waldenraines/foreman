@@ -1,4 +1,5 @@
 //= require jquery
+//= require angular
 //= require jquery.turbolinks
 //= require turbolinks
 //= require i18n
@@ -20,6 +21,11 @@
 //= require select_on_click
 //= require select2
 //= require underscore
+//= require foreman.module
+//= require angular-rails-templates
+//= require_tree ./templates
+//= require editor/editor.module
+//= require_tree ./editor
 
 $(document).on('ContentLoad', function(){onContentLoad()});
 Turbolinks.enableProgressBar();

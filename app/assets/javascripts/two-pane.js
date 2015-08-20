@@ -135,6 +135,15 @@ function hide_columns(){
 function right_pane_content(response){
   if (handle_redirect(response)) return; //session expired redirect to login
 
+  var $body = angular.element('body');
+  $body.scope().$apply(function () {
+    var $compile = $body.injector().get('$compile'),
+      $rootScope = $body.injector().get('$rootScope');
+
+    response = $compile(angular.element(response))($rootScope);
+  });
+
+
   if (!$("#content", response).length){
     $('.two-pane-right').html(response);
     $('.two-pane-right form').prepend("<div class='fr close-button'><a class='two-pane-close' href='#'>&times;</a></div>");
@@ -144,6 +153,7 @@ function right_pane_content(response){
     // response is not a form use the entire page
     $('#content').replaceWith($("#content", response));
   }
+
   $(document.body).trigger('ContentLoad');
 }
 
