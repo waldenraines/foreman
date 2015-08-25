@@ -5,7 +5,7 @@
  * @description
  *   Module for the foreman ace editor.
  */
-angular.module('foreman.editor', ['foreman-templates', 'ui.ace']);
+angular.module('foreman.editor', ['templates', 'ui.ace']);
 
 angular.module('foreman.editor').run(function($templateCache){
   console.log($templateCache);
