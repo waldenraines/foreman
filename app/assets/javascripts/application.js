@@ -23,7 +23,7 @@
 //= require underscore
 //= require foreman.module
 //= require angular-rails-templates
-//= require_tree ./templates
+//= require_tree ../templates
 //= require editor/editor.module
 //= require_tree ./editor
 
