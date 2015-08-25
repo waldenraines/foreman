@@ -8,6 +8,7 @@
 angular.module('foreman.editor', ['templates', 'ui.ace']);
 
 angular.module('foreman.editor').run(function($templateCache){
+console.log(ngular.module('templates').requires);
   console.log($templateCache);
   console.log($templateCache.info());
   console.log($templateCache.get('editor.html'));
