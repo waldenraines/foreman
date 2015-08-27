@@ -12,14 +12,13 @@
     <div class="hidden">
       <div class="editor-container">
         <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
-        <%= f.text_area :value, :rows => line_count(f, :value), :class => 'form-control editor_source', :'data-property' => 'value' %>
-
+        <%= textarea_f f, :value, :rows => :auto, :value => f.object.value_before_type_cast, :size => "col-md-8",
+                       :class => 'editor_source',
+                       :disabled => f.object.use_puppet_default,
+                       :fullscreen => false,
+                       :help_inline => remove_child_link(icon_text("remove"), f, {:title => _('remove value')}) %>
       </div>
     </div>
-    <%= textarea_f f, :value, :rows => :auto, :value => f.object.value_before_type_cast, :size => "col-md-8",
-                   :disabled => f.object.use_puppet_default,
-                   :fullscreen => false,
-                   :help_inline => remove_child_link(icon_text("remove"), f, {:title => _('remove value')}) %>
     <a class="btn btn-default btn-sm btn-fullscreen" href="#" onclick="set_fullscreen_editor('.editor-container', $(this).parent()); $(this).parent().find('.editor-container').removeClass('hidden');">
       <i class="glyphicon glyphicon-resize-full"></i>
     </a>
