@@ -9,16 +9,22 @@
     <%= text_field_tag '', nil, :class => 'matcher_value' %>
   </td>
   <td>
-    <div class="editor-container">
-      <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
-      <%= f.text_area(:value, :rows => :auto, :value => f.object.value_before_type_cast, :size => "col-md-8",
-                     # :class => 'editor_source',
-                     :disabled => f.object.use_puppet_default,
-                     :help_inline => remove_child_link(icon_text("remove"), f, {:title => _('remove value')})) %>
+    <div class="form-group">
+      <div class="col-md-4">
+        <div class="editor-container">
+          <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
+          <%= f.text_area(:rows => :auto, :value => f.object.value_before_type_cast, :size => "col-md-8",
+                         # :class => 'editor_source',
+                         :disabled => f.object.use_puppet_default) %>
+          <div class="help-inline">
+            <%= remove_child_link(icon_text("remove"), f, {:title => _('remove value')}) %>
+          </div>
+        </div>
+        <a class="btn btn-default btn-sm btn-fullscreen" href="#" onclick="set_fullscreen_editor('.editor-container', $(this).parent()); $(this).parent().find('.editor-container').removeClass('hidden');">
+          <i class="glyphicon glyphicon-resize-full"></i>
+        </a>
+      </div>
     </div>
-    <a class="btn btn-default btn-sm btn-fullscreen" href="#" onclick="set_fullscreen_editor('.editor-container', $(this).parent()); $(this).parent().find('.editor-container').removeClass('hidden');">
-      <i class="glyphicon glyphicon-resize-full"></i>
-    </a>
   </td>
   <td class="ca">
     <%= f.check_box :use_puppet_default, :'data-property' => 'use_puppet_default',
