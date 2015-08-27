@@ -12,9 +12,11 @@
     <div class="form-group">
       <div class="col-md-4">
         <div class="editor-container">
-          <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
+          <div class="hidden">
+            <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
+          </div>
           <%= f.text_area(:value, :rows => :auto, :size => "col-md-8",
-                         # :class => 'editor_source',
+                         :class => 'editor_source',
                          :disabled => f.object.use_puppet_default) %>
           <div class="help-inline">
             <%= remove_child_link(icon_text("remove"), f, {:title => _('remove value')}) %>
