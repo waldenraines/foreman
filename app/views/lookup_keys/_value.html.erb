@@ -10,23 +10,21 @@
   </td>
   <td>
     <div class="form-group">
-      <div class="col-md-4">
-        <div class="editor-container">
-          <div class="hidden">
-            <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
-          </div>
-          <%= f.text_area(:value, :rows => :auto, :size => "col-md-8",
-                         :class => 'editor_source',
-                         :disabled => f.object.use_puppet_default) %>
+      <div class="editor-container">
+        <div class="hidden">
+          <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
         </div>
-        <div class="help-inline">
-          <%= remove_child_link(icon_text("remove"), f, {:title => _('remove value')}) %>
-        </div>
-        <a class="btn btn-default btn-sm btn-fullscreen" href="#" onclick="set_fullscreen_editor('.editor-container', $(this).parent()); $(this).parent().find('.editor-container').removeClass('hidden');">
-          <i class="glyphicon glyphicon-resize-full"></i>
-        </a>
+        <%= f.text_area(:value, :rows => :auto, :size => "col-md-8",
+                        :class => 'editor_source',
+                        :disabled => f.object.use_puppet_default) %>
       </div>
     </div>
+    <a class="btn btn-default btn-sm btn-fullscreen" href="#" onclick="set_fullscreen_editor('.editor-container', $(this).parent()); $(this).parent().find('.editor-container').removeClass('hidden');">
+      <i class="glyphicon glyphicon-resize-full"></i>
+    </a>
+    <span class="help-inline">
+      <%= remove_child_link(icon_text("remove"), f, {:title => _('remove value')}) %>
+    </span>
   </td>
   <td class="ca">
     <%= f.check_box :use_puppet_default, :'data-property' => 'use_puppet_default',
