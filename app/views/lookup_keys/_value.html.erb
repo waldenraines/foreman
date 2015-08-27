@@ -18,9 +18,9 @@
           <%= f.text_area(:value, :rows => :auto, :size => "col-md-8",
                          :class => 'editor_source',
                          :disabled => f.object.use_puppet_default) %>
-          <div class="help-inline">
-            <%= remove_child_link(icon_text("remove"), f, {:title => _('remove value')}) %>
-          </div>
+        </div>
+        <div class="help-inline">
+          <%= remove_child_link(icon_text("remove"), f, {:title => _('remove value')}) %>
         </div>
         <a class="btn btn-default btn-sm btn-fullscreen" href="#" onclick="set_fullscreen_editor('.editor-container', $(this).parent()); $(this).parent().find('.editor-container').removeClass('hidden');">
           <i class="glyphicon glyphicon-resize-full"></i>
