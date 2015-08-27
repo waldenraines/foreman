@@ -13,7 +13,7 @@
       <div class="col-md-4">
         <div class="editor-container">
           <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
-          <%= f.text_area(:value => f.object.value_before_type_cast, :rows => :auto, :size => "col-md-8",
+          <%= f.text_area(:value, :rows => :auto, :size => "col-md-8",
                          # :class => 'editor_source',
                          :disabled => f.object.use_puppet_default) %>
           <div class="help-inline">
