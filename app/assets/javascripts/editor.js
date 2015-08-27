@@ -160,7 +160,7 @@ function set_edit_mode(item){
 
   var session = Editor.getSession();
   session.setMode("ace/mode/ruby");
-  
+
   session.setValue($('#new').val());
   session.on('change', function(){
     item.text(session.getValue());
