@@ -22,9 +22,8 @@
         <div class="hidden">
           <%= render :partial => 'editor/toolbar', :locals => {:show_preview => false} %>
         </div>
-        <%= f.text_area(:value, :rows => :auto, :size => "col-md-8",
-                        :class => 'editor_source',
-                        :disabled => f.object.use_puppet_default) %>
+        <div class="editor_source"></div>
+
       </div>
     </div>
   </td>
