@@ -156,12 +156,10 @@ function set_edit_mode(item){
     Editor.setReadOnly(false);
   }
 
-  set_mode();
+  set_mode("ace/mode/ruby");
 
   var session = Editor.getSession();
-  session.setMode("ace/mode/ruby");
-
-  session.setValue($('#new').val());
+  //session.setValue($('#new').val());
   session.on('change', function(){
     item.text(session.getValue());
   });
