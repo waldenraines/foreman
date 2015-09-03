@@ -42,9 +42,11 @@
       <% end -%>
 
       <div class='form-group'>
-        <label class="control-label col-md-2"  for="template"><%= _("Template editor") %></label>
+        <div class="col-md-12">
+            <label class="control-label"  for="template"><%= _("Template editor") %></label>
+        </div>
 
-        <div class="col-md-9">
+        <div class="col-md-12">
           <div class="editor-container">
             <%= render :partial => 'editor/toolbar', :locals => {:show_preview => true} %>
 
