@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class CommonParameterIntegrationTest < ActionDispatch::IntegrationTest
+  def setup
+    Capybara.current_driver = Capybara.javascript_driver
+    login_admin
+  end
+
   test "index page" do
     assert_index_page(common_parameters_path,"Global Parameters","New Parameter")
   end
@@ -26,8 +31,8 @@ class CommonParameterIntegrationTest < ActionDispatch::IntegrationTest
     visit common_parameters_path
     click_link "test"
     check "common_parameter_hidden_value"
-    assert page.has_no_seletor? 'editor_source'
+    page.assert_no_selector 'editor_source'
     uncheck "common_parameter_hidden_value"
-    assert page.has_selector? 'editor_source'
+    page.assert_selector 'editor_source'
   end
 end
