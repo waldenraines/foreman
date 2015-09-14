@@ -21,4 +21,13 @@ class CommonParameterIntegrationTest < ActionDispatch::IntegrationTest
     assert_submit_button(common_parameters_path)
     assert page.has_content? 'mynewvalue'
   end
+
+  test "hidden value" do
+    visit common_parameters_path
+    click_link "test"
+    check "#common_parameter_hidden_value"
+    assert page.has_no_css? 'editor_source'
+    uncheck "#common_parameter_hidden_value"
+    assert page.has_css? 'editor_source'
+  end
 end
