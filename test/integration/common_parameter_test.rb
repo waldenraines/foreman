@@ -26,8 +26,8 @@ class CommonParameterIntegrationTest < ActionDispatch::IntegrationTest
     visit common_parameters_path
     click_link "test"
     check "common_parameter_hidden_value"
-    assert page.has_no_css? 'editor_source'
+    assert page.has_no_seletor? 'editor_source'
     uncheck "common_parameter_hidden_value"
-    assert page.has_css? 'editor_source'
+    assert page.has_selector? 'editor_source'
   end
 end
