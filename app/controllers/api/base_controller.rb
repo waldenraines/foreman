@@ -212,13 +212,13 @@ module Api
 
     def find_optional_nested_object
       find_nested_object
+      debugger
       return @nested_obj if @nested_obj
       not_found_if_nested_id_exists
     end
 
     def find_nested_object
       _parent_name, parent_resource_scope = parent_resource_details
-
       return if parent_resource_scope.nil?
 
       @nested_obj = parent_resource_scope.first
