@@ -14,29 +14,6 @@ class BookmarksControllerTest < ActionController::TestCase
     assert_not_nil assigns(:bookmarks)
   end
 
-  test "should get new" do
-    get :new, {}, set_session_user
-    assert_response :success
-  end
-
-  test "should create bookmark" do
-    User.current = users(:one)
-    assert_difference('Bookmark.count') do
-      post :create, {:bookmark => {:name => "foo-bar", :query => "bar", :public => false, :controller => "hosts"}}, set_session_user
-    end
-
-    assert_redirected_to hosts_path
-  end
-
-  test "should create bookmark with a dot" do
-    User.current = users(:one)
-    assert_difference('Bookmark.count') do
-      post :create, {:bookmark => {:name => "facts.architecture", :query => " facts.architecture = x86_64", :public => false, :controller => "hosts"}}, set_session_user
-    end
-
-    assert_redirected_to hosts_path
-  end
-
   test "should get edit" do
     get :edit, {:id => bookmarks(:one).to_param}, set_session_user
     assert_response :success
@@ -81,14 +58,5 @@ class BookmarksControllerTest < ActionController::TestCase
     assert_response :success
     refute_empty assigns(:bookmarks)
     assert assigns(:bookmarks).include?(bookmarks(:one))
-  end
-
-  test "should create bookmark for global parameter" do
-    User.current = users(:one)
-    assert_difference('Bookmark.count') do
-      post :create, { :bookmark => { :name => "foo-bar", :query => "bar", :public => false, :controller => "common_parameters" } }, set_session_user
-    end
-
-    assert_redirected_to common_parameters_path
   end
 end
