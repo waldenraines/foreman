@@ -1,10 +1,15 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import Validators from 'redux-form-validators';
 import { required, length } from 'redux-form-validators';
 import Form from '../../common/forms/Form';
 import TextField from '../../common/forms/TextField';
 import * as FormActions from '../../../redux/actions/common/forms';
+
+Validators.formatMessage = function (message) {
+  return <span>{__(message.defaultMessage)}</span>;
+};
 
 const submit = ({ name, query, publik }, dispatch, props) => {
   const { submitForm, url, controller } = props;
