@@ -8,6 +8,7 @@ import TextField from '../../common/forms/TextField';
 import * as FormActions from '../../../redux/actions/common/forms';
 
 Validators.formatMessage = function (message) {
+  console.log(message);
   return <span>{__(message.defaultMessage)}</span>;
 };
 
