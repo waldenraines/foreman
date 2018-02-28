@@ -51,7 +51,9 @@
           visitor: {
             id: '<%= User.current.id if User.current %>'
           },
-          account: {}
+          account: {
+            id: '<%= User.current.id if User.current %>'
+          }
         });
       })('2b800693-91e9-49f5-7ca5-9c362c8c85e9');
     </script>
